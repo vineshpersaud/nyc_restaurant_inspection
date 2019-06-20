@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import RestaurantCard from '../components/restaurantcard'
 
 export default class Restaurants extends Component{
   constructor() {
@@ -18,7 +19,13 @@ export default class Restaurants extends Component{
     return(
       <div>
         <h1>Restaurants</h1>
-        <h2>{this.state.restaurants[0].dba}</h2>
+        <h2>{this.state.restaurants.map(restaurant =>
+          <div>
+            <RestaurantCard
+              restaurant={restaurant}
+            />
+          </div>
+        )}</h2>
       </div>
     )
   }
