@@ -5,7 +5,27 @@ export default class Restaurants extends Component{
   constructor() {
   super()
   this.state = {
-    restaurants: ["empty"],
+    search: '',
+    restaurants: [{
+camis: "40364956",
+dba: "THE NEW STARLING ATHLETIC CLUB OF THE BRONX",
+boro: "BRONX",
+building: "2222",
+street: "HAVILAND AVENUE",
+zipcode: "10462",
+phone: "7188229004",
+cuisine_description: "American",
+inspection_date: "2018-06-14T00:00:00.000",
+action: "Violations were cited in the following area(s).",
+violation_code: "08A",
+violation_description: "Facility not vermin proof. Harborage or conditions conducive to attracting vermin to the premises and/or allowing vermin to exist.",
+critical_flag: "Not Critical",
+score: "12",
+grade: "A",
+grade_date: "2018-06-14T00:00:00.000",
+record_date: "2019-06-20T06:00:57.000",
+inspection_type: "Cycle Inspection / Initial Inspection"
+}],
   };
 }
   componentDidMount() {
@@ -14,12 +34,24 @@ export default class Restaurants extends Component{
       .then(x => this.setState({restaurants: x}))
   }
 
+  updateSearch(event){
+    this.setState({search: event.target.value})
+  }
+
   render(){
-    debugger
+    let filtered = this.state.restaurants.filter( (restaurant) => {
+        return restaurant.dba.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
+      }
+    )
     return(
       <div>
+        <input type="text"
+               value={this.state.search}
+               onChange={this.updateSearch.bind(this)}
+        >
+        </input>
         <h1>Restaurants</h1>
-        <h2>{this.state.restaurants.map(restaurant =>
+        <h2>{filtered.map(restaurant =>
           <div>
             <RestaurantCard
               restaurant={restaurant}
